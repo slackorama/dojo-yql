@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Dojo YQL Module</title>
+    <script type="text/javascript" src="../../../dojo/dojo.js"></script>
+    
+    <style type="text/css" media="screen">
+		@import "../../../dojo/resources/dojo.css";
+        
+        p, h2 {
+            margin: 1em;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-image:none;
+            list-style-position:outside;
+            list-style-type:none;
+        }        
+
+        .mod {
+            border: 1px solid black;
+            padding: 10px;
+            width: 580px;
+            margin: .5em;
+        }
+        .mod .friendfeed li {
+            border: 1px solid #ccc;
+            margin-bottom: 3px;
+            padding: 5px;
+        }
+        .mod .friendfeed li.odd {
+            background-color: #ccc;
+            border-color: #ddd;
+        }
+        ul.listing li {
+            list-style-type: square;
+            margin-left: 4em;        
+        }
+	</style>
+</head>
+<body class="tundra">
+  <div id="friendfeed"></div>
+  <script type="text/javascript">
+    dojo.require('dojox.yql');
+
+    dojo.addOnLoad( function() {
+      dojox.yql.execute( "select * from friendfeed.feeds where nickname = 'slackorama'",
+        { load: function( r ) {
+            var data = r.results.entries;
+            var el = dojo.create( "div", { className: "mod",
+                                           innerHTML: "<h2>Friendfeed(" +
+                                           data[0].user.nickname  +
+                                           ")</h2>" },
+                                           dojo.byId("friendfeed"),"last");
+            var ul = dojo.create("ul", { className: "friendfeed" }, el, "last");                                       
+            dojo.forEach( data, function(item, idx) {
+              dojo.create("li",{ innerHTML: item.title + "<br />on <a href=\"" +
+                                   item.link + "\">" + 
+                                   item.service.name + "</a>",
+                                 className: ( idx % 2 == 0 ? "odd" : "even" )
+                               }, ul, "last");
+            });
+          }
+        });
+    });
+    </script>
+</body>
+</html>
