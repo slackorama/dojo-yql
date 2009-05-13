@@ -14,7 +14,11 @@ To use it:
                         }
                 });
 
-                
+Note
+====
+If you are using this module, you must comply with Yahoo's [usage and
+attribution requirements][usage].
+
 TODO:
 =====
 
@@ -24,3 +28,4 @@ TODO:
 
 [yql]: http://developer.yahoo.com/yql/
 [yui-yql]: http://github.com/davglass/yui-yql/
+[usage]: http://developer.yahoo.com/faq/#token
